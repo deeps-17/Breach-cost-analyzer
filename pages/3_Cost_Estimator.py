@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -10,6 +11,9 @@ st.markdown("---")
 
 @st.cache_resource
 def load_model():
+    if not os.path.exists('data/model.pkl'):
+        from setup import train_and_save_model
+        train_and_save_model()
     with open('data/model.pkl', 'rb') as f:
         model = pickle.load(f)
     with open('data/encoders.pkl', 'rb') as f:
